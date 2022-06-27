@@ -2,8 +2,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[ show ]
 
   def index
-    flash.now[:alert] = "Falha"
-    flash.now[:notice] = "Exito"
+    # flash.now[:alert] = "Falha"
+    # flash.now[:notice] = "Exito"
     @posts = Post.all
   end
 
@@ -15,14 +15,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.merge(created_by: current_user))
 
-    respond_to do |format|
-      if @post.save
-        redirect_to @post, notice: "Post criado com sucesso."
-      else
-        render :new
-      end
+    if @post.save
+      redirect_to @post, notice: "Post criado com sucesso."
+    else
+      render :new
     end
   end
 
