@@ -5,5 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   validates :name, :username, presence: true 
   validates :username, uniqueness: true  
+  
   has_many :posts, foreign_key: :created_by_id, dependent: :destroy
+  has_many :likes
+
+  has_one_attached :avatar
+  validates :avatar, content_type: %i[png jpeg jpg]
+
 end

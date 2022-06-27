@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def index
     # flash.now[:alert] = "Falha"
     # flash.now[:notice] = "Exito"
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def show
@@ -18,11 +18,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params.merge(created_by: current_user))
+    @post = Post.new(post_param.merge(created_by: current_user))
 
     if @post.save
       redirect_to @post, notice: "Post criado com sucesso."
     else
+      flash.now[:alert] = @post.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -33,7 +34,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def post_params
-    params.require(:post).permit(:description)
+  def post_param
+    params.require(:post).permit( :photo, :description)
   end
 end

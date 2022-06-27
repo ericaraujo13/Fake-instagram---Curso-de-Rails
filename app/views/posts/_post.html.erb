@@ -13,17 +13,13 @@
       </header>
 
       <section class="image">
-        <%= image_tag "https://i.picsum.photos/id/1/200/300.jpg" %>
+        <%= image_tag post.photo %>
       </section>
 
       <div class="details">
         <section class="actions">
           <nav>
-            <div class="action">
-              <div class="like">
-                <%= embedded_svg "like.svg" %>
-              </div>
-            </div>
+          <%= render "likes/like", post: post %>            
 
             <div class="action">
               <%= link_to post do %>
