@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   validates :description, presence: true 
   belongs_to :created_by, class_name: "User"
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   has_one_attached :photo
   validates :photo, attached: true, 
