@@ -158,6 +158,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.7.0)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -218,6 +219,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.6)
   rails-i18n (~> 7.0)
+  redis (~> 4.7)
   sass-rails (>= 6)
   spring
   tzinfo-data

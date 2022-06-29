@@ -1,19 +1,21 @@
 class CommentsController < ApplicationController
-  def create 
+  def create
     @comment = current_user.comments.new(comment_params)
 
     if @comment.save
-      redirect_to @comment.post, notice: "Comentario enviado com sucesso."
-    else 
+      CommentChannel.broadcast_to("comment_channel",
+        post_id: @comment.post_id,
+        comment_created: render_to_string(partial: @comment))
+
+      redirect_to @comment.post, notice: "Comentário enviado com sucesso."
+    else
       flash.now[:alert] = @comment.errors.full_messages.to_sentence
+      @post = @comment.post
       render "posts/show"
     end
   end
 
-
-
-
-  private 
+  private
 
   def comment_params
     params.require(:comment).permit(:post_id, :body)
